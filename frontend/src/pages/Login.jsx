@@ -21,7 +21,12 @@ export default function Login() {
       navigate('/play');
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Invalid username/email or password.');
+      setError(
+        err.response?.data?.message ||
+        (err.response?.status === 404 ? 'Connection failed (HTTP 404). Please ensure the backend is running and VITE_API_URL is configured correctly.' : null) ||
+        err.message ||
+        'Invalid username/email or password.'
+      );
     } finally {
       setLoading(false);
     }

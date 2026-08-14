@@ -32,7 +32,12 @@ export default function Register() {
       navigate('/play');
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Registration failed. Username or Email may already exist.');
+      setError(
+        err.response?.data?.message ||
+        (err.response?.status === 404 ? 'Connection failed (HTTP 404). Please ensure the backend is running and VITE_API_URL is configured correctly.' : null) ||
+        err.message ||
+        'Registration failed. Username or Email may already exist.'
+      );
     } finally {
       setLoading(false);
     }
