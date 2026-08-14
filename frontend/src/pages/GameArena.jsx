@@ -79,10 +79,13 @@ export default function GameArena() {
 
     try {
       const res = await submitGameApi(id, { userAnswer: finalAns });
+      if (!res.data || !res.data.id) {
+        throw new Error('Invalid result response received from server.');
+      }
       navigate(`/result/${res.data.id}`);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Failed to submit answer. Session may have expired.');
+      setError(err.response?.data?.message || err.message || 'Failed to submit answer. Session may have expired.');
       setSubmitting(false);
     }
   };

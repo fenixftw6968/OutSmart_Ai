@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/index.html", "/favicon.ico", "/assets/**", "/*.png", "/*.svg", "/*.ico").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/leaderboard/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/stats/**").permitAll()

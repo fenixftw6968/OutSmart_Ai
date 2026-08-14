@@ -50,10 +50,13 @@ export default function Play() {
         difficulty: selectedDifficulty,
         daily: isDaily,
       });
+      if (!res.data || !res.data.id) {
+        throw new Error('Invalid game session response received from server.');
+      }
       navigate(`/game/${res.data.id}`);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Failed to start AI challenge. Please try again.');
+      setError(err.response?.data?.message || err.message || 'Failed to start AI challenge. Please try again.');
     } finally {
       setLoading(false);
     }
