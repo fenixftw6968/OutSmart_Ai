@@ -1,0 +1,16 @@
+# Local environment variables
+.env
+.env.local
+
+# Maven build artifacts
+backend/target/
+.mvn/
+
+# Node dependencies & Vite build artifacts
+frontend/node_modules/
+frontend/dist/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
